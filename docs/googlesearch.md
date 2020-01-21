@@ -8,18 +8,18 @@ If you have a Google search console API key, all you have to do is to edit the f
 
 **CX id** : 
 
-- Go to https://cse.google.com/cse/create/new to create a new search engine
+- Go to [https://cse.google.com/cse/create/new](https://cse.google.com/cse/create/new) to create a new search engine
 - Fill the form with a fake domain site like `example.com`
 - Select English as language
 - Give any name to your search engine and click on Create button
-- Go to https://cse.google.com/cse/all again and click on the search engine you just created.
+- Go to [https://cse.google.com/cse/all](https://cse.google.com/cse/all) again and click on the search engine you just created.
 - Select all entries in "Sites to search" and delete them
 - Turn "Search the entire web" to ON
 - Click on the "Search engine ID" button and copy your search engine id. This is the value for `google_cx_id` field in config.py file
 
 **CSE API key** :
 
-- Go to https://console.developers.google.com/apis/credentials
+- Go to [https://console.developers.google.com/apis/credentials](https://console.developers.google.com/apis/credentials)
 - Click on "Create credentials" and select API key
 - Copy the API key and click on close button. This is the value for `google_api_key` field in the config.py file
 - **Be sure to restrict the API key** to "Custom Search API"
@@ -28,8 +28,10 @@ If you have a Google search console API key, all you have to do is to edit the f
 
 By default, PhoneInfo uses Selenium to handle Google search feature. When running OSINT scans, you will usually be blacklisted very easily by Google, which will ask the tool to complete a captcha. Nothing more simple, just complete the captcha that appears on the firefox window. Then press ENTER in the CLI to tell the tool it can continue the scanning process.
 
-Still having issues with Google captcha ? Please [open an issue](https://github.com/sundowndev/PhoneInfoga/issues).
-**Be careful, the cookie contain your IP address.**
+!!! warning "If the tool can't find your browser executable, you can specify the Firefox executable path in `config.py` or leave it blank to use the default configuration."
+
+!!! failure
+        Still having issues with Google captcha ? Please [open an issue](https://github.com/sundowndev/PhoneInfoga/issues). **Please don't disclose any personal data.**
 
 #### Using Docker
 
@@ -54,4 +56,10 @@ Here's an example of VNC URL :
 vnc://127.0.0.1:5900
 ```
 
-Also make sure you disabled any `read-only` or `view-only` mode so you can interact with the browser in order to complete the captcha.
+!!! tip
+        Also make sure you disabled any `read-only` or `view-only` mode so you can interact with the browser in order to complete the captcha.
+
+##### VNC clients
+
+- [Chicken, an open-source VNC client for MacOS X](https://sourceforge.net/projects/chicken/)
+- [Vinagre, an open-source VNC client for GNOME (Linux)](https://github.com/GNOME/vinagre)

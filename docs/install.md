@@ -2,8 +2,8 @@ To install PhoneInfoga, you'll need to download source code then install depende
 
 Requirements : 
 
-- python3 and python3-pip OR Docker
-- git OR wget and curl
+- python3 and python3-pip **OR** Docker
+- git **OR** curl
 
 ## Manual installation
 
@@ -17,7 +17,9 @@ cd PhoneInfoga/
 You can also download the source code archive : 
 
 ```shell
-wget $(curl -s https://api.github.com/repos/sundowndev/phoneinfoga/releases/latest | grep tarball_url | cut -d '"' -f 4) -O PhoneInfoga.tar.gz
+# Download it
+curl -L $(curl -s https://api.github.com/repos/sundowndev/phoneinfoga/releases/latest | grep tarball_url | cut -d '"' -f 4) -o PhoneInfoga.tar.gz
+# Then extract it
 tar -xvzf PhoneInfoga.tar.gz
 cd sundowndev*
 ```
@@ -42,35 +44,58 @@ python3 phoneinfoga.py -v
 
 ### Install the Geckodriver
 
-The Geckodriver is the Firefox webdriver for Selenium, which is used by PhoneInfoga to perform queries to Google search and handle captcha. Firefox is actually the only webdriver supported by PhoneInfoga. Want to hack it to use chrome or another driver instead ? See [this file](https://github.com/sundowndev/PhoneInfoga/blob/8179fe4857ca7df2d843119e2123c260e8401818/lib/googlesearch.py#L35).
+The Geckodriver is the Firefox webdriver for Selenium, which is used by PhoneInfoga to perform queries to Google search and handle captcha. Firefox is actually the only webdriver supported by PhoneInfoga.
+
+!!! tip "Want to hack it to use chrome or another driver instead ? See [this file](https://github.com/sundowndev/PhoneInfoga/blob/8179fe4857ca7df2d843119e2123c260e8401818/lib/googlesearch.py#L35)."
 
 #### Linux
+
+##### Download
 
 Go to the [geckodriver releases page](https://github.com/mozilla/geckodriver/releases). Find the latest version of the driver for your platform and download it. For example: 
 
 ```shell
-wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+curl -L https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz -o geckodriver-v0.24.0-linux64.tar.gz
 ```
 
-Extract the file:
+##### Extract the file
 
 ```shell
-sudo sh -c 'tar -x geckodriver -zf geckodriver-*.tar.gz -O > /usr/bin/geckodriver'
+tar -xzf geckodriver-*.tar.gz -O > /usr/bin/geckodriver
 ```
 
-Make it executable:
+##### Make it executable
 
 ```shell
 sudo chmod +x /usr/bin/geckodriver
 ```
 
-Remove the archive:
+##### Remove the archive
 
 ```shell
 rm geckodriver-*.tar.gz
 ```
 
-#### Windows or MacOS
+!!! note
+    You also have to install Firefox browser v65+. To verify everything is working fine, use the following commands:
+
+    - `which firefox` should return something like `/usr/bin/firefox`
+    - `which geckodriver` should return something like `/usr/bin/geckodriver`
+
+#### MacOS
+
+You can use brew to install the geckodriver
+
+```
+brew install geckodriver
+```
+
+It should then be installed at `/usr/local/bin/geckodriver`.
+
+#### Windows
+
+!!! warning
+    This tool is not tested under any version of Windows. Consider using an *nix operating system.
 
 - Go to the [geckodriver releases page](https://github.com/mozilla/geckodriver/releases). Find the latest version of the driver for your platform and download it.
 - Extract the archive
@@ -91,7 +116,8 @@ Then run the tool
 ```shell
 docker run --rm -it sundowndev/phoneinfoga --help
 ```
-**WARNING**: This image only contain the python tool and not the Selenium hub which is useful to query Google. In order to use Selenium driver, you must use the docker-compose configuration, as described below.
+!!! warning 
+    This image only contain the python tool and not the Selenium hub which is useful to query Google. In order to use Selenium driver, you must use the docker-compose configuration, as described below.
 
 ### Docker-compose
 
